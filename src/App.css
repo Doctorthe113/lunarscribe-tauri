@@ -1,0 +1,45 @@
+/* src/index.css */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+    background-color: black;
+}
+
+@font-face {
+    font-family: Lexend;
+    src: url("./assets/fonts/Lexend-VariableFont_wght.ttf");
+    text-wrap: nowrap;
+}
+
+@font-face {
+    font-family: "JetBrainsMono Nerd";
+    src: url("./assets/fonts/JetBrainsMonoNerdFont-Regular.ttf");
+    text-wrap: nowrap;
+}
+
+@font-face {
+    font-family: NDot;
+    src: url("./assets/fonts/ndot-45-inspired-by-nothing.ttf");
+    text-wrap: nowrap;
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf");
+    font-style: normal;
+    text-wrap: nowrap;
+}
+
+.font-montserrat {
+    font-family: Montserrat;
+}
+
+.font-lexend {
+    font-family: Lexend;
+}
+
+.font-ndot {
+    font-family: NDot;
+}
