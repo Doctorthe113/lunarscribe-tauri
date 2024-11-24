@@ -13,7 +13,24 @@ export default {
     ],
     darkMode: "class",
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                writeBgColor: "#0A192E",
+                fontColor: "#FBA585",
+                accent: "#6DCBC1",
+                titleBgColor: "#071324",
+            },
+            fontFamily: {
+                lexend: ["Lexend", "sans-serif"],
+                jetBrainsMonoNerd: ["JetBrainsMono Nerd", "monospace"],
+                ndot: ["NDot", "monospace"],
+                montserrat: ["Montserrat", "sans-serif"],
+            },
+            boxShadow: {
+                titlebar: "0px 1px 20px 0px black",
+            },
+        },
+        screens: {},
     },
     plugins: [],
 };
