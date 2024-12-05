@@ -15,19 +15,22 @@ export default {
     theme: {
         extend: {
             colors: {
-                writeBgColor: "#0A192E",
-                fontColor: "#FBA585",
-                accent: "#6DCBC1",
+                bgColor: "#141324",
+                fontColor: "#979DBC",
+                accent: "#B673AF",
                 titleBgColor: "#071324",
+                titleBarColor: "#80B3B4",
             },
             fontFamily: {
-                lexend: ["Lexend", "sans-serif"],
+                lexend: ["Lexend", "Arial"],
                 jetBrainsMonoNerd: ["JetBrainsMono Nerd", "monospace"],
                 ndot: ["NDot", "monospace"],
-                montserrat: ["Montserrat", "sans-serif"],
+                montserrat: ["Montserrat", "Arial"],
+                minecraft: ["Minecraft"],
+                "space-mono": ["Space Mono", "monospace"],
             },
             boxShadow: {
-                titlebar: "0px 1px 20px 0px black",
+                titlebar: "0px 1px 20px 0px rgba(0, 0, 0, 0.8)",
             },
         },
         screens: {},

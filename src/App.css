@@ -3,8 +3,79 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@layer base {
+    h1 {
+        @apply my-2 text-2xl;
+        color: #d9b775;
+    }
+
+    h2 {
+        @apply my-2 text-xl;
+        color: #65a0a4;
+    }
+
+    h3 {
+        @apply my-2 text-lg;
+        color: #e6739b;
+    }
+
+    h4 {
+        @apply my-2 text-base;
+        color: #9cb13c;
+    }
+
+    h5 {
+        @apply my-2 text-sm;
+        color: #636fbd;
+    }
+
+    h6 {
+        @apply my-2 text-xs;
+        color: #fa0079;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-montserrat font-semibold;
+        border-bottom: 1px solid;
+    }
+
+    ol {
+        list-style-type: decimal;
+        @apply px-12;
+    }
+
+    ul {
+        list-style-type: disc;
+        @apply px-12;
+    }
+}
+
 body {
-    background-color: #071324;
+    background-color: #11101e;
+}
+
+pre,
+code {
+    @apply bg-[#0f0f1a] px-4 py-2 font-space-mono;
+}
+
+/* for icons */
+svg {
+    height: 24px;
+    width: 24px;
+}
+
+details {
+    display: inline;
+}
+
+input[type="checkbox"] {
+    @apply accent-accent;
 }
 
 @font-face {
@@ -30,4 +101,21 @@ body {
     src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf");
     font-style: normal;
     text-wrap: nowrap;
+}
+
+@font-face {
+    font-family: "Minecraft";
+    src: url("./assets/fonts/MinecraftTen-VGORe.ttf");
+    text-wrap: nowrap;
+}
+
+@font-face {
+    font-family: "Space Mono";
+    src: url("./assets/fonts/SpaceMono-Regular.ttf");
+    text-wrap: nowrap;
+}
+
+.btn {
+    @apply flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent
+        hover:text-black;
 }
