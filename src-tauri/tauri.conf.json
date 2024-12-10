@@ -14,7 +14,8 @@
             {
                 "title": "Lunarscribe",
                 "width": 920,
-                "height": 800
+                "height": 800,
+                "decorations": false
             }
         ],
         "security": {

@@ -66,13 +66,14 @@ export default function Preview(text_) {
 
         return collapsedTextConverted;
     };
+
     return (
         <div
-            className="flex w-screen max-w-4xl flex-grow justify-center overflow-y-scroll bg-bgColor p-3 font-montserrat shadow-titlebar"
+            className="flex w-screen flex-grow justify-center overflow-hidden overflow-y-scroll bg-bgColor p-3 font-sourgummy font-medium shadow-titlebar"
             id="preview"
         >
             <Markdown
-                className="w-full resize-none bg-bgColor text-fontColor outline-none"
+                className="w-full h-full resize-none bg-bgColor overflow-scroll outline-none"
                 children={parser(text)}
                 remarkPlugins={[remarkGfm, remarkMath]}
                 rehypePlugins={[rehypeKatex, rehypeRaw]}

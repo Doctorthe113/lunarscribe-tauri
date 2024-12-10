@@ -14,12 +14,12 @@ export default function Writing(textProps) {
 
     return (
         <div
-            className="flex w-screen max-w-4xl flex-grow justify-center bg-bgColor p-3 pb-4 font-jetBrainsMonoNerd shadow-titlebar"
+            className="flex w-screen flex-grow justify-center bg-bgColor p-3 font-jetBrainsMonoNerd shadow-titlebar"
             id="writing"
         >
             <textarea
                 id="writer"
-                className="w-full resize-none bg-bgColor text-fontColor outline-none"
+                className="w-full resize-none bg-bgColor outline-none"
                 spellCheck="false"
                 autoComplete="off"
                 onFocus={(e) => update_text(e.target.value)}

@@ -1,38 +1,63 @@
 import { useState } from "react";
-import { Excalidraw, MainMenu, WelcomeScreen } from "@excalidraw/excalidraw";
-import { open, save } from "@tauri-apps/api/dialog";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { Excalidraw, MainMenu } from "@excalidraw/excalidraw";
+import { open } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 
-const ExcalidrawTauriComponent = (pathProps) => {
-    const [excalidrawAPI, setExcalidrawAPI] = useState(null);
-    const [elements, setElements] = useState([]);
-    const [appState, setAppState] = useState({});
-    const [files, setFiles] = useState({});
-    const filePath = pathProps.path;
+export default function CustomExcalidraw(pathProps) {
+    const [excalidrawAPI, setExcalidrawAPI] = useState();
+    const [isLoaded, setIsLoaded] = useState(false);
+    const filePath = `${pathProps.path}/drawing.excalidraw`;
 
-    const handleSave = async () => {
+    // this is to get rid of empty objects inside of appState
+    const prep_app_state = (appState) => {
+        const copyAppState = { ...appState };
+
+        Object.keys(appState).forEach((key) => {
+            if (typeof copyAppState[key] != "object") {
+                //
+            } else if (copyAppState[key] === null) {
+                delete copyAppState[key];
+            } else if (Object.keys(copyAppState[key]).length === 0) {
+                delete copyAppState[key];
+            }
+        });
+        return copyAppState;
+    };
+
+    const save_file = async () => {
         try {
             if (filePath) {
-                // Prepare save data
+                // preps the appState
+                const appState = prep_app_state(excalidrawAPI.getAppState());
                 const saveData = JSON.stringify({
                     type: "excalidraw",
                     version: 2,
-                    source: "Tauri React App",
-                    elements: elements,
+                    source: "Lunarscribe - Tauri",
+                    elements: excalidrawAPI.getSceneElements(),
                     appState: appState,
-                    files: files,
+                    files: excalidrawAPI.getFiles(),
                 });
 
-                // Write file
                 await writeTextFile(filePath, saveData);
                 console.log("Drawing saved successfully");
             }
         } catch (error) {
-            console.error("Error saving drawing:", error);
+            console.log("Error saving drawing:", error);
         }
     };
 
-    const handleLoad = async () => {
+    // reads the .excalidraw file and updates the scene
+    const read_file = async (path_) => {
+        const readExcaliJson = await readTextFile(path_);
+        excalidrawAPI.updateScene({
+            elements: JSON.parse(readExcaliJson).elements,
+            appState: JSON.parse(readExcaliJson).appState,
+            files: JSON.parse(readExcaliJson).files,
+        });
+    };
+
+    // for opening any new documents
+    const open_file = async () => {
         try {
             // Open file dialog
             const filePath = await open({
@@ -45,71 +70,34 @@ const ExcalidrawTauriComponent = (pathProps) => {
             });
 
             if (filePath) {
-                // Read file
-                const fileContents = await readTextFile(filePath);
-                const loadedData = JSON.parse(fileContents);
-
-                // Restore drawing state
-                if (excalidrawAPI) {
-                    excalidrawAPI.updateScene({
-                        elements: loadedData.elements,
-                        appState: loadedData.appState,
-                        files: loadedData.files,
-                    });
-
-                    // Update local state (optional, but can be useful)
-                    setElements(loadedData.elements);
-                    setAppState(loadedData.appState);
-                    setFiles(loadedData.files);
-                }
+                await read_file(filePath);
             }
         } catch (error) {
             console.error("Error loading drawing:", error);
         }
     };
 
-    return (
-        <div className="h-screen w-full">
-            <div className="flex justify-between bg-gray-100 p-2">
-                <button
-                    onClick={handleSave}
-                    className="rounded bg-blue-500 px-4 py-2 text-white"
-                >
-                    Save Drawing
-                </button>
-                <button
-                    onClick={handleLoad}
-                    className="rounded bg-green-500 px-4 py-2 text-white"
-                >
-                    Load Drawing
-                </button>
-            </div>
+    // for some reason the excalidraw api won't update the scene immidiately hence the delay
+    if (excalidrawAPI && !isLoaded) {
+        setIsLoaded(true);
+        setTimeout(() => read_file(filePath), 10);
+    }
 
+    return (
+        <div
+            className="flex w-screen flex-grow justify-center overflow-y-scroll bg-bgColor p-3 font-montserrat shadow-titlebar"
+            onFocus={save_file}
+            onBlur={save_file}
+        >
             <Excalidraw
-                ref={(api) => setExcalidrawAPI(api)}
-                onChange={(elements, state, files) => {
-                    setElements(elements);
-                    setAppState(state);
-                    setFiles(files);
-                }}
+                excalidrawAPI={(api) => setExcalidrawAPI(api)}
+                theme="dark"
             >
                 <MainMenu>
-                    <MainMenu.DefaultItems.LoadScene onSelect={handleLoad} />
-                    <MainMenu.DefaultItems.SaveScene onSelect={handleSave} />
+                    <MainMenu.Item onClick={open_file}>Open</MainMenu.Item>
+                    <MainMenu.Item onClick={save_file}>Save</MainMenu.Item>
                 </MainMenu>
-                <WelcomeScreen>
-                    <WelcomeScreen.Hints.ToolbarHint />
-                    <WelcomeScreen.Hints.MenuHint />
-                    <WelcomeScreen.Center>
-                        <WelcomeScreen.Center.Logo />
-                        <WelcomeScreen.Center.Heading>
-                            Welcome to Excalidraw in Tauri
-                        </WelcomeScreen.Center.Heading>
-                    </WelcomeScreen.Center>
-                </WelcomeScreen>
             </Excalidraw>
         </div>
     );
-};
-
-export default ExcalidrawTauriComponent;
+}

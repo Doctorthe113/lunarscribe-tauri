@@ -15,11 +15,18 @@ export default {
     theme: {
         extend: {
             colors: {
-                bgColor: "#141324",
-                fontColor: "#979DBC",
-                accent: "#B673AF",
-                titleBgColor: "#071324",
-                titleBarColor: "#80B3B4",
+                bgColor: "#1e1e2e",
+                fontColor: "#cdd6f4",
+                accent: "#89b4fa",
+                titleBgColor: "#11111b",
+                titleBarColor: "#f5e0dc",
+                yellow: "#f9e2af",
+                teal: "#94e2d5",
+                pink: "#f5c2e7",
+                green: "#a6e3a1",
+                sapphire: "#74c7ec",
+                peach: "#fab387",
+                red: "#f38ba8",
             },
             fontFamily: {
                 lexend: ["Lexend", "Arial"],
@@ -28,6 +35,8 @@ export default {
                 montserrat: ["Montserrat", "Arial"],
                 minecraft: ["Minecraft"],
                 "space-mono": ["Space Mono", "monospace"],
+                playfair: ["Playfair", "serif"],
+                "sourgummy": ["Sourgummy", "serif"],
             },
             boxShadow: {
                 titlebar: "0px 1px 20px 0px rgba(0, 0, 0, 0.8)",

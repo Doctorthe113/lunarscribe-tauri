@@ -3,35 +3,39 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* sets the default refernce font size */
+* {
+    font-size: 18px;
+}
+
+body {
+    background-color: #000000;
+}
+
 @layer base {
     h1 {
-        @apply my-2 text-2xl;
-        color: #d9b775;
+        @apply my-2 text-2xl text-yellow;
+        border-bottom: 1px solid;
     }
 
     h2 {
-        @apply my-2 text-xl;
-        color: #65a0a4;
+        @apply my-2 text-xl text-teal;
     }
 
     h3 {
-        @apply my-2 text-lg;
-        color: #e6739b;
+        @apply my-2 text-lg text-pink;
     }
 
     h4 {
-        @apply my-2 text-base;
-        color: #9cb13c;
+        @apply my-2 text-base text-green;
     }
 
     h5 {
-        @apply my-2 text-sm;
-        color: #636fbd;
+        @apply my-2 text-sm text-sapphire;
     }
 
     h6 {
-        @apply my-2 text-xs;
-        color: #fa0079;
+        @apply my-2 text-xs text-red;
     }
 
     h1,
@@ -40,8 +44,7 @@
     h4,
     h5,
     h6 {
-        @apply font-montserrat font-semibold;
-        border-bottom: 1px solid;
+        @apply font-playfair font-semibold;
     }
 
     ol {
@@ -53,47 +56,58 @@
         list-style-type: disc;
         @apply px-12;
     }
-}
 
-body {
-    background-color: #11101e;
-}
+    pre,
+    code {
+        @apply bg-[#0f0f1a] px-4 py-2 font-space-mono;
+    }
 
-pre,
-code {
-    @apply bg-[#0f0f1a] px-4 py-2 font-space-mono;
-}
+    /* for icons */
+    svg {
+        height: 24px;
+        width: 24px;
+    }
 
-/* for icons */
-svg {
-    height: 24px;
-    width: 24px;
-}
+    details {
+        display: inline;
+    }
 
-details {
-    display: inline;
-}
+    /* todo */
+    input[type="checkbox"]:checked {
+        accent-color: #b673af;
+        color: white;
+        background-color: #b673af;
+        opacity: 1;
+        height: 14px;
+        width: 14px;
+    }
 
-input[type="checkbox"] {
-    @apply accent-accent;
+    ::selection {
+        @apply bg-teal text-bgColor;
+    }
+
+    .btn {
+        @apply flex h-8 w-8 items-center justify-center rounded-md
+            hover:bg-accent hover:text-black transition-all duration-500;
+    }
+
+    .text-xxs{
+        font-size: 10px;
+    }
 }
 
 @font-face {
     font-family: Lexend;
     src: url("./assets/fonts/Lexend-VariableFont_wght.ttf");
     text-wrap: nowrap;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "JetBrainsMono Nerd";
     src: url("./assets/fonts/JetBrainsMonoNerdFont-Regular.ttf");
     text-wrap: nowrap;
-}
-
-@font-face {
-    font-family: NDot;
-    src: url("./assets/fonts/ndot-45-inspired-by-nothing.ttf");
-    text-wrap: nowrap;
+    font-display: swap;
 }
 
 @font-face {
@@ -101,21 +115,26 @@ input[type="checkbox"] {
     src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf");
     font-style: normal;
     text-wrap: nowrap;
-}
-
-@font-face {
-    font-family: "Minecraft";
-    src: url("./assets/fonts/MinecraftTen-VGORe.ttf");
-    text-wrap: nowrap;
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Space Mono";
     src: url("./assets/fonts/SpaceMono-Regular.ttf");
     text-wrap: nowrap;
+    font-display: swap;
 }
 
-.btn {
-    @apply flex h-8 w-8 items-center justify-center rounded-md hover:bg-accent
-        hover:text-black;
+@font-face {
+    font-family: "Playfair";
+    src: url("./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf");
+    text-wrap: nowrap;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Sourgummy";
+    src: url("./assets/fonts/SourGummy-VariableFont_wdth.wght.ttf");
+    text-wrap: nowrap;
+    font-display: swap;
 }
